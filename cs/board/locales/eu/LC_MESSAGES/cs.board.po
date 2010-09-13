@@ -1,0 +1,47 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2010-09-13 14:55+0000\n"
+"PO-Revision-Date: 2010-09-13 16:56+0100\n"
+"Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: utf-8 latin1\n"
+"Domain: DOMAIN\n"
+
+#: ./profiles/default/types/Board.xml
+msgid "Board"
+msgstr "Iragarki-ohola"
+
+#: ./profiles/default/types/BoardDocument.xml
+msgid "BoardDocument"
+msgstr "Dokumentua"
+
+#: ./profiles/default/types/Board.xml
+msgid "Document publication board"
+msgstr "Dokumentu ofizialak argitaratzeko ohola"
+
+#: ./profiles/default/types/BoardDocument.xml
+msgid "Document published on the board"
+msgstr "Iragarki-oholean argitaratzeko dokumentua"
+
+#. Default: "File number"
+#: ./content/boarddocument.py:24
+msgid "label_filenumber"
+msgstr "Espediente-zenbakia"
+
+#. Default: "File type"
+#: ./content/boarddocument.py:32
+msgid "label_filetype"
+msgstr "Espediente-mota"
+
+#. Default: "Literal procedure name"
+#: ./content/boarddocument.py:41
+msgid "label_literalprocedure"
+msgstr "Prozedura"
+

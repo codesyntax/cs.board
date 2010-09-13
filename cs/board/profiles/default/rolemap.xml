@@ -2,6 +2,10 @@
 <rolemap>
   <permissions>
     <!-- -*- extra stuff goes here -*- -->
+    <permission name="cs.board: Add BoardDocument" acquire="False">
+      <role name="Manager" />
+      <role name="Contributor" />
+    </permission>
     <permission name="cs.board: Add Board" acquire="False">
       <role name="Manager" />
       <role name="Contributor" />

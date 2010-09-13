@@ -6,6 +6,12 @@
   <!-- configure your content components here -->
   
   <!-- -*- extra stuff goes here -*- -->
+  <class class=".boarddocument.BoardDocument">
+    <require
+        permission="zope2.View"
+        interface="..interfaces.IBoardDocument"
+        />
+  </class>
   <class class=".board.Board">
     <require
         permission="zope2.View"
