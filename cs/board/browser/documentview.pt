@@ -4,7 +4,7 @@
       i18n:domain="cs.board">
 <body>
     <div metal:fill-slot="content-core">
-      <dl>
+      <dl tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
         <dt i18n:translate="label_filenumber">
           File number
         </dt>
@@ -18,16 +18,16 @@
           Job offer
         </dd>
         <dt i18n:translate="label_document_publication_start">
-          Document publication day
+          Document publication date
         </dt>
-        <dd tal:content="context/EffectiveDate">
-          Job offer
+        <dd tal:content="python:toLocalizedTime(context.EffectiveDate, long_format=1)">
+          2010/08/20 16:15
         </dd>
         <dt i18n:translate="label_document_publication_end">
-          Document expiry day
+          Document expiry date
         </dt>
-        <dd tal:content="context/ExpirationDate">
-          Job offer
+        <dd tal:content="python:toLocalizedTime(context.ExpirationDate, long_format=1)">
+          2010/09/20 16:15
         </dd>
         <tal:files repeat="file view/files">
           <dt tal:content="file/Title">

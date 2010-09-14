@@ -8,6 +8,16 @@
   <!-- -*- extra stuff goes here -*- -->
 
   <browser:page
+      for="..interfaces.IBoard"
+      name="view"
+      class=".boardview.BoardView"
+      template="boardview.pt"
+      allowed_interface=".boardview.IBoardView"
+      permission="zope.Public"
+      />
+
+
+  <browser:page
       for="..interfaces.IBoardDocument"
       name="view"
       class=".documentview.DocumentView"
