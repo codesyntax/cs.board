@@ -56,7 +56,6 @@ setup(name='cs.board',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
-                        'archetypes.multifile',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
