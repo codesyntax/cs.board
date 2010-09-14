@@ -1,0 +1,13 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:zcml="http://namespaces.zope.org/zcml"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="cs.board">
+
+
+  <subscriber zcml:condition="installed Products.LinguaPlone"
+              for="Products.ATContentTypes.interfaces.IATFile
+                   Products.Archetypes.interfaces.IObjectInitializedEvent"
+              handler=".boarddocument.translateFiles" />
+
+</configure>
