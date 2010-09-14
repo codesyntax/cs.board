@@ -19,6 +19,7 @@ BoardDocumentSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.StringField('filenumber',
                       required = True,
                       searchable = True,
+                      languageIndependent = True,
                       storage = atapi.AnnotationStorage(),
                       widget = atapi.StringWidget(
                                     label = _(u'label_filenumber', default=u'File number'),
@@ -27,6 +28,7 @@ BoardDocumentSchema = folder.ATFolderSchema.copy() + atapi.Schema((
     atapi.StringField('filetype',
                       required = True,
                       searchable = True,
+                      languageIndependent = True,
                       storage = atapi.AnnotationStorage(),                      
                       widget = atapi.StringWidget(
                                     label = _(u'label_filetype', default=u'File type'),
