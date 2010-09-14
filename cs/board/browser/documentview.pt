@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+      lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="cs.board">
+<body>
+    <div metal:fill-slot="content-core">
+      <dl>
+        <dt i18n:translate="label_filenumber">
+          File number
+        </dt>
+        <dd tal:content="context/filenumber">
+          IX99822/99
+        </dd>
+        <dt i18n:translate="label_filetype">
+          File type
+        </dt>
+        <dd tal:content="context/filetype">
+          Job offer
+        </dd>
+        <dt i18n:translate="label_document_publication_start">
+          Document publication day
+        </dt>
+        <dd tal:content="context/EffectiveDate">
+          Job offer
+        </dd>
+        <dt i18n:translate="label_document_publication_end">
+          Document expiry day
+        </dt>
+        <dd tal:content="context/ExpirationDate">
+          Job offer
+        </dd>
+        <tal:files repeat="file view/files">
+          <dt tal:content="file/Title">
+            File representing one thing
+          </dt>
+          
+          <dd tal:define="context python:file.getObject()">
+            <metal:field use-macro="python:context.widget('file', mode='view')">
+              Body text
+            </metal:field>
+          </dd>
+          
+        </tal:files>
+      </dl>
+    </div>
+</body>
+</html>

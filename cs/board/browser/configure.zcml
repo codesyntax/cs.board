@@ -7,4 +7,14 @@
 
   <!-- -*- extra stuff goes here -*- -->
 
+  <browser:page
+      for="..interfaces.IBoardDocument"
+      name="view"
+      class=".documentview.DocumentView"
+      template="documentview.pt"
+      allowed_interface=".documentview.IDocumentView"
+      permission="zope.Public"
+      />
+
+
 </configure>
