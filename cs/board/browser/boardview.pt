@@ -11,7 +11,12 @@
         Published documents
       </h2>
 
-      <table class="listing" id="published_documents">
+      <p tal:condition="not:view/getPublishedDocuments"
+         i18n:translate="label_no_published_documents">
+        There are no published documents
+      </p>
+
+      <table class="listing" id="published_documents" tal:condition="view/getPublishedDocuments">
         <caption i18n:translate="board_published_caption">List of documents published on the board</caption>
         <thead>
           <tr>
@@ -41,7 +46,13 @@
         Not yet published documents
       </h2>
 
-      <table class="listing" id="private_documents">
+      <p tal:condition="not:view/getPrivateDocuments"
+         i18n:translate="label_no_private_documents">
+        There are no unpublished documents
+      </p>
+
+
+      <table class="listing" id="private_documents" tal:condition="view/getPrivateDocuments">
         <caption i18n:translate="board_private_caption">List of documents not yet published on the board</caption>
         <thead>
           <tr>
