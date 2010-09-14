@@ -2,11 +2,6 @@ from Acquisition import aq_parent
 from Products.LinguaPlone.public import AlreadyTranslated
 
 def translateFiles(object, event):
-    # event.oldParent
-    # event.oldName
-    # event.newParent
-    # event.newName
-    #import pdb;pdb.set_trace()
     parent = aq_parent(object)
     if parent.portal_type == 'BoardDocument':
         translations = parent.getTranslations()
