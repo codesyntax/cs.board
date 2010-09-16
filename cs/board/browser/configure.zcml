@@ -27,4 +27,24 @@
       />
 
 
+  <!-- WS API -->
+  <browser:pages
+      for="..interfaces.IBoard"
+      class=".api.BoardAPI"
+      permission="cmf.ModifyPortalContent">
+
+    <browser:page
+        name="publish_document"
+        attribute="publish_document" />
+
+    <browser:page
+        name="get_filetype_info"
+        attribute="get_filetype_info" />
+
+    <browser:page
+        name="get_file_info"
+        attribute="get_file_info" />
+
+  </browser:pages>
+
 </configure>
