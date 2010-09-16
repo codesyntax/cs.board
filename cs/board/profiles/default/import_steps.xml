@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<import-steps>
+  <import-step id="cs.board-various" version="20100916_v01" handler="cs.board.setuphandlers.importVarious" 
+	       title="cs.board various import settings">
+    <dependency step="catalog" />
+    <dependency step="types" />
+  </import-step>
+</import-steps>

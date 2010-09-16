@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<object name="portal_catalog">
+ <index name="filenumber" meta_type="FieldIndex">
+  <indexed_attr value="filenumber"/>
+ </index>
+ <index name="filetype" meta_type="FieldIndex">
+  <indexed_attr value="filetype"/>
+ </index>
+ <column value="filenumber"/>
+ <column value="filetype"/>
+</object>
