@@ -160,8 +160,6 @@ class BoardAPI(WSAPI):
 
         if action == 'INSERT':
             id = self.context.generateUniqueId('BoardDocument')
-            import pdb;pdb.set_trace()
-            
             obj_id = self.context.invokeFactory(id=id,
                                              type_name='BoardDocument',
                                              title=title_es,
