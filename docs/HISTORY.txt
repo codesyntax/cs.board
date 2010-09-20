@@ -5,6 +5,10 @@ Changelog
 --------------------
 - Add z3c.soap and soaplib dependencies to setup.py and configure.zcml
   to avoid adding them to buildout.cfg
+  [erral]
+
+- Add auto-translation hook for BoardDocuments too
+  [erral]
 
 1.1.1 (2010/09/20)
 -------------------

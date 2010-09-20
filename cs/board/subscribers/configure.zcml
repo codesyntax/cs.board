@@ -10,6 +10,12 @@
                    Products.Archetypes.interfaces.IObjectInitializedEvent"
               handler=".file.translateFiles" />
 
+  <subscriber zcml:condition="installed Products.LinguaPlone"
+              for="..interfaces.IBoardDocument
+                   Products.Archetypes.interfaces.IObjectInitializedEvent"
+              handler=".boarddocument.translateDocuments" />
+
+
   <subscriber for="..interfaces.IBoardDocument
                    Products.CMFCore.interfaces.IActionSucceededEvent"
               handler=".boarddocument.publishDocument"
