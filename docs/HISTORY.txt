@@ -1,7 +1,31 @@
 Changelog
 =========
 
-1.0dev (unreleased)
+1.1 (2010/09/20)
 -------------------
 
-- Initial release
+- WS is only ready to documents in Spanish and Basque. More work
+  is needed to have automatic detection of languages
+  [erral]
+
+- WS description WSDL file created at <board-url>/wsdl
+  [erral]
+
+- WS implementation changed to SOAP
+  [erral]
+
+
+1.0 (2010/09/17)
+-------------------
+
+- WS implementation using XML-RPC
+  [erral]
+
+- Files are translated automatically
+  [erral]
+
+- BoardDocuments need to be translated manualy to get correct title translation
+  [erral]
+
+- Initial implementation:  Board, BoardDocument and Files.
+  [erral]

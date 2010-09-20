@@ -1,6 +1,7 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
     xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:soap="http://namespaces.zope.org/soap"
     i18n_domain="cs.board">
 
   <include package="plone.app.contentmenu" />
@@ -28,6 +29,7 @@
 
 
   <!-- WS API -->
+  <!--
   <browser:pages
       for="..interfaces.IBoard"
       class=".api.BoardAPI"
@@ -46,5 +48,37 @@
         attribute="get_file_info" />
 
   </browser:pages>
+  -->
 
+  <soap:view
+      for="..interfaces.IBoard"
+      class=".api.BoardAPI"
+      permission="cmf.ModifyPortalContent"
+      methods="publish_document
+               get_filetype_info
+               get_file_info"
+      />
+
+  <!-- WSDL description -->
+  <browser:page
+      for="..interfaces.IBoard"
+      name="wsdl"
+      class=".api.BoardAPI"
+      attribute="wsdl"
+      permission="zope2.View"
+      />
+
+
+<!--
+...   <soap:view
+...       for="OFS.interfaces.IFolder"
+...       methods="echoString echoStringArray echoInteger echoIntegerArray
+...                echoFloat echoFloatArray echoStruct echoVoid echoBase64
+...                echoDate echoDecimal echoBoolean ValidateEmailRequest
+...                testFault"
+...       class="z3c.soap.README.EchoView"
+...       permission="zope2.SOAPAccess"
+...       />
+...
+-->
 </configure>
