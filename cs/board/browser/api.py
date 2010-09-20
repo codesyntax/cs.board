@@ -3,15 +3,13 @@ wsapi4plone.core based WS API for document publication
 """
 
 from zope.interface import Interface, implements
-from zope.component import getMultiAdapter
 from Acquisition import aq_parent
 
 from Products.CMFCore.utils import getToolByName
-from wsapi4plone.core.browser.wsapi import WSAPI
+from Products.Five.browser import BrowserView
 
 from DateTime import DateTime
 import base64
-import xmlrpclib
 import ZSI
 
 from soaplib.service import SoapServiceBase, soapmethod
@@ -128,12 +126,8 @@ class MarkerService(SoapServiceBase):
     def get_file_info(self, filenumber):
         pass
 
-class BoardAPI(WSAPI):
+class BoardAPI(BrowserView):
     implements(IBoardAPI)
-
-     ## def __init__(self, context, request):
-     ##    WSAPI.__init__(self, context, request)
-     ##    SoapServiceBase.__init__(self)
 
     @property
     def portal_catalog(self):
