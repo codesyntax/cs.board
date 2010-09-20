@@ -1,5 +1,11 @@
 Changelog
 =========
+
+1.2dev (unreleased)
+--------------------
+- Add z3c.soap and soaplib dependencies to setup.py and configure.zcml
+  to avoid adding them to buildout.cfg
+
 1.1.1 (2010/09/20)
 -------------------
 - Brown bag release, remove a pdb...

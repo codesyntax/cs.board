@@ -56,6 +56,8 @@ setup(name='cs.board',
       zip_safe=False,
       install_requires=['setuptools',
                         # -*- Extra requirements: -*-
+                        'z3c.soap',
+                        'soaplib==0.8.1',
                         ],
       tests_require=tests_require,
       extras_require=dict(tests=tests_require),
