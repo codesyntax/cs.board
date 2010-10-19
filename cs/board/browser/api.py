@@ -17,6 +17,11 @@ from soaplib.serializers.clazz import ClassSerializer
 from soaplib.serializers.primitive import String, Array, Integer
 from soaplib.serializers.binary import Attachment
 
+# XXX Remove this before going into production
+from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl import getSecurityManager
+from AccessControl.User import UnrestrictedUser
+
 
 class IBoardAPI(Interface):
 
@@ -150,6 +155,9 @@ class BoardAPI(BrowserView):
         action = INSERT | UPDATE | ADD | DELETE
         """
 
+        current_user = getSecurityManager().getUser()
+        newSecurityManager(None, UnrestrictedUser('andago', '', ['Manager'], []))
+
         wtool = getToolByName(self.context, 'portal_workflow')
 
         if action == 'INSERT':
@@ -183,6 +191,8 @@ class BoardAPI(BrowserView):
                 doc_obj_eu.reindexObject()
 
             wtool.doActionFor(obj, 'publish')
+            # XXX
+            newSecurityManager(None, current_user)
             return 1
                 
         elif action == 'UPDATE':
@@ -202,6 +212,8 @@ class BoardAPI(BrowserView):
                 obj_eu.setTitle(title_eu)
                 obj_eu.reindexObject()
 
+            # XXX
+            newSecurityManager(None, current_user)
             return 1
 
         elif action == 'ADD':
@@ -223,7 +235,8 @@ class BoardAPI(BrowserView):
                     doc_obj_eu = doc_obj.addTranslation(language='eu', title=document['description_eu'])
                     doc_obj_eu._renameAfterCreation()
                     doc_obj_eu.reindexObject()
-
+            # XXX
+            newSecurityManager(None, current_user)
             return 1
 
         elif action == 'DELETE':
@@ -236,10 +249,17 @@ class BoardAPI(BrowserView):
                 del aq_parent(obj)[obj.getId()]
                 del aq_parent(obj_eu)[obj_eu.getId()]
 
+            # XXX
+            newSecurityManager(None, current_user)
             return 1
 
         else:
+            # XXX
+            newSecurityManager(None, current_user)
             return 500
+
+        # XXX
+        newSecurityManager(None, current_user)
 
             
             
