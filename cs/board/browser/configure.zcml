@@ -53,7 +53,7 @@
   <soap:view
       for="..interfaces.IBoard"
       class=".api.BoardAPI"
-      permission="cmf.ModifyPortalContent"
+      permission="zope2.View"
       methods="publish_document
                get_filetype_info
                get_file_info"

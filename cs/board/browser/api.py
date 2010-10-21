@@ -264,10 +264,20 @@ class BoardAPI(BrowserView):
             
             
     def get_filetype_info(self, filetype):
-        return self.decorateBrains(self.portal_catalog(filetype=filetype, portal_type='BoardDocument', Language='es'))
+        current_user = getSecurityManager().getUser()
+        newSecurityManager(None, UnrestrictedUser('andago', '', ['Manager'], []))
+        ret =  self.decorateBrains(self.portal_catalog(filetype=filetype, portal_type='BoardDocument', Language='es'))
+
+        newSecurityManager(None, current_user)
+        return ret
 
     def get_file_info(self, filenumber):
-        return self.decorateBrains(self.portal_catalog(filenumber=filenumber, portal_type='BoardDocument', Language='es'))
+        current_user = getSecurityManager().getUser()
+        newSecurityManager(None, UnrestrictedUser('andago', '', ['Manager'], []))
+        ret = self.decorateBrains(self.portal_catalog(filenumber=filenumber, portal_type='BoardDocument', Language='es'))
+
+        newSecurityManager(None, current_user)
+        return ret
 
 
     def decorateBrains(self, brains):
