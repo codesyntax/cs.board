@@ -54,10 +54,23 @@
       for="..interfaces.IBoard"
       class=".api.BoardAPI"
       permission="zope2.View"
-      methods="publish_document
-               get_filetype_info
-               get_file_info"
+      methods="publish_document"
       />
+
+  <soap:view
+      for="..interfaces.IBoard"
+      class=".api.BoardAPI"
+      permission="zope2.View"
+      methods="get_file_info"
+      />
+
+  <soap:view
+      for="..interfaces.IBoard"
+      class=".api.BoardAPI"
+      permission="zope2.View"
+      methods="get_filetype_info"
+      />
+
 
   <!-- WSDL description -->
   <browser:page

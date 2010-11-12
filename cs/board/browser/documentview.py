@@ -35,4 +35,4 @@ class DocumentView(BrowserView):
     def files(self):
         context = aq_inner(self.context)
         return self.portal_catalog(path='/'.join(context.getPhysicalPath()),
-                                   portal_type='File')
+                                   portal_type=['File', 'AccreditedFile'])

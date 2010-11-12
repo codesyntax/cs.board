@@ -144,6 +144,7 @@ class BoardAPI(BrowserView):
         res.setHeader('Content-Type', 'text/xml; charset="utf-8"')
         return SoapServiceBase.wsdl(MarkerService(), self.context.absolute_url())
 
+
     def publish_document(self, action='', filenumber='', filetype='',
                          title_es='', title_eu='', publication_date='', expiration_date='',
                          documents=[{'document': '',
@@ -262,7 +263,6 @@ class BoardAPI(BrowserView):
         newSecurityManager(None, current_user)
 
             
-            
     def get_filetype_info(self, filetype):
         current_user = getSecurityManager().getUser()
         newSecurityManager(None, UnrestrictedUser('andago', '', ['Manager'], []))
@@ -311,7 +311,9 @@ class BoardAPI(BrowserView):
         ##     file_data['document_filename'] = f_obj.getField('file').getFilename(f_obj)
         ##     data['documents'].append(file_data)
 
-        return data
+        return DocumentInfo(name=obj.Title(),
+                            url_es=data['url_es'],
+                            url_eu=data['url_eu'])
         
 
 
