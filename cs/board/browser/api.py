@@ -211,7 +211,7 @@ class BoardAPI(BrowserView):
                 if document.get('document', None) is None:
                     raise ZSI.Fault(ZSI.Fault.Client, 'document is required')
                 
-                doc_id = obj.generateUniqueId('File')
+                doc_id = obj.generateUniqueId('AccreditedFile')
 
                 try:
                     filecontent = base64.decodestring(document.get('document', ''))
@@ -219,7 +219,7 @@ class BoardAPI(BrowserView):
                     raise ZSI.Fault(ZSI.Fault.Client, 'an error occured when decoding the base64 encoded file content')
                 
                 doc_id = obj.invokeFactory(id=doc_id,
-                                           type_name='File',
+                                           type_name='AccreditedFile',
                                            title=document.get('description_es', ''),
                                            file=filecontent,
                                            filename=document.get('document_filename', ''),
@@ -265,9 +265,9 @@ class BoardAPI(BrowserView):
             for brain in brains:
                 obj = brain.getObject()
                 for document in documents:
-                    doc_id = obj.generateUniqueId('File')
+                    doc_id = obj.generateUniqueId('AccreditedFile')
                     doc_id = obj.invokeFactory(id=doc_id,
-                                               type_name='File',
+                                               type_name='AccreditedFile',
                                                title=document['description_es'],
                                                file=document['document'].data,
                                                filename=document['document_filename'],
