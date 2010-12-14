@@ -6,6 +6,8 @@
     i18n_domain="cs.board">
     
   <five:registerPackage package="." initialize=".initialize" />
+  <i18n:registerTranslations directory="locales" />
+
   <include package="z3c.soap" />
   <include package="z3c.soap" file="meta.zcml"/>
 
