@@ -37,7 +37,8 @@ class IBoardAPI(Interface):
                          expiration_date,
                          documents=[{'document':'',
                                      'description_es':'',
-                                     'description_eu':''},
+                                     'description_eu':'',
+                                     'document_filename':''},
                                     ]
                          ):
         """
@@ -162,6 +163,29 @@ class BoardAPI(BrowserView):
         wtool = getToolByName(self.context, 'portal_workflow')
 
         if action == 'INSERT':
+            # Validation
+            if not filenumber:
+                raise ZSI.Fault(ZSI.Fault.Client, 'filenumber is required')
+            if not filetype:
+                raise ZSI.Fault(ZSI.Fault.Client, 'filetype is required')
+            if not title_es:
+                raise ZSI.Fault(ZSI.Fault.Client, 'title_es is required')
+            if not title_eu:
+                raise ZSI.Fault(ZSI.Fault.Client, 'title_eu is required')
+            if not publication_date:
+                raise ZSI.Fault(ZSI.Fault.Client, 'publication_date is required')
+            if not expiration_date:
+                raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date is required')
+            try:
+                pd = DateTime(publication_date)
+            except:
+                raise ZSI.Fault(ZSI.Fault.Client, 'publication_date format is not correct')
+            try:
+                ed = DateTime(expiration_date)
+            except:
+                raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date format is not correct')
+            # end of validation                 
+                
             id = self.context.generateUniqueId('BoardDocument')
             obj_id = self.context.invokeFactory(id=id,
                                              type_name='BoardDocument',
@@ -173,21 +197,38 @@ class BoardAPI(BrowserView):
             obj.setExpirationDate(DateTime(expiration_date))
             obj._renameAfterCreation()
             obj.reindexObject()
-            obj_eu = obj.addTranslation(language='eu', title=title_eu)
+            try:
+                obj_eu = obj.addTranslation(language='eu', title=title_eu)
+            except:
+                # Translation errors
+                raise ZSI.Fault(ZSI.Fault.Client, 'error occured when creating translation of the item. Contact the administrator.')
+            
             obj_eu._renameAfterCreation()
             obj_eu.reindexObject()
+
+            # Create the file for each published            
             for document in documents:
+                if document.get('document', None) is None:
+                    raise ZSI.Fault(ZSI.Fault.Client, 'document is required')
+                
                 doc_id = obj.generateUniqueId('File')
+
+                try:
+                    filecontent = base64.decodestring(document.get('document', ''))
+                except:
+                    raise ZSI.Fault(ZSI.Fault.Client, 'an error occured when decoding the base64 encoded file content')
                 
                 doc_id = obj.invokeFactory(id=doc_id,
                                            type_name='File',
-                                           title=document['description_es'],
-                                           file=base64.decodestring(document['document']),
+                                           title=document.get('description_es', ''),
+                                           file=filecontent,
                                            filename=document.get('document_filename', ''),
                                            )
                 doc_obj = getattr(obj, doc_id)
+                ff = doc_obj.getField('file')
+                ff.setFilename(doc_obj, document.get('document_filename',document.get('description_es', '')))
                 doc_obj._renameAfterCreation()
-                doc_obj_eu = doc_obj.addTranslation(language='eu', title=document['description_eu'])
+                doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
                 doc_obj_eu._renameAfterCreation()
                 doc_obj_eu.reindexObject()
 
