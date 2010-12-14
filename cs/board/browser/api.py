@@ -75,13 +75,12 @@ class DocumentInfo(ClassSerializer):
         url_es = String
         url_eu = String
 
-    def __init__(self, name, url_es='', url_eu=''):
-        self.name = name
+    def __init__(self, url_es='', url_eu=''):
         self.url_es = url_es
         self.url_eu = url_eu
 
     def __str__(self):
-        return str((self.name, self.url_es, self.url_eu))
+        return str((self.url_es, self.url_eu))
 
 DocumentInfo.typecode = ZSI.TC.Struct(DocumentInfo,
                                       (ZSI.TC.String('url_es'),
@@ -95,14 +94,17 @@ class FileInfo(ClassSerializer):
         description_eu = String
         document = Attachment
 
-    def __init__(self, name, description_es='', description_eu='', document = None):
-        self.name = name
+    def __init__(self, description_es='', description_eu='', document = None):
         self.description_es = description_es
         self.description_eu = description_eu
         self.document = document
 
     def __str__(self):
-        return str((self.name, self.description_es))
+        return u'''<FileInfo>
+                     <description_es>%s</description_es>
+                     <description_eu>%s</description_eu>
+                     <document>%s</document>
+                   </FileInfo>''' % (self.description_es, self.description_eu, self.document)
 
 FileInfo.typecode = ZSI.TC.Struct(FileInfo,
                                   (ZSI.TC.String('description_es'),
@@ -176,14 +178,16 @@ class BoardAPI(BrowserView):
                 raise ZSI.Fault(ZSI.Fault.Client, 'publication_date is required')
             if not expiration_date:
                 raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date is required')
+
             try:
                 pd = DateTime(publication_date)
-            except:
-                raise ZSI.Fault(ZSI.Fault.Client, 'publication_date format is not correct')
+            except Exception,e:
+                raise ZSI.Fault(ZSI.Fault.Client, 'publication_date format is not correct: %s' % e)
+
             try:
                 ed = DateTime(expiration_date)
-            except:
-                raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date format is not correct')
+            except Exception,e:
+                raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date format is not correct: %s' % e)
             # end of validation                 
                 
             id = self.context.generateUniqueId('BoardDocument')
@@ -207,7 +211,7 @@ class BoardAPI(BrowserView):
             obj_eu.reindexObject()
 
             # Create the file for each published            
-            for document in documents:
+            for document in documents.values():
                 if document.get('document', None) is None:
                     raise ZSI.Fault(ZSI.Fault.Client, 'document is required')
                 
@@ -352,8 +356,7 @@ class BoardAPI(BrowserView):
         ##     file_data['document_filename'] = f_obj.getField('file').getFilename(f_obj)
         ##     data['documents'].append(file_data)
 
-        return DocumentInfo(name=obj.Title(),
-                            url_es=data['url_es'],
+        return DocumentInfo(url_es=data['url_es'],
                             url_eu=data['url_eu'])
         
 
