@@ -211,7 +211,7 @@ class BoardAPI(BrowserView):
             # Create the file for each published            
             if documents:
                 for document in documents.values():
-                    self.generateDocument(obj, document)
+                    self.generate_document(obj, document)
 
             wtool.doActionFor(obj, 'publish')
             # XXX
