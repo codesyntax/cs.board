@@ -85,7 +85,8 @@ class DocumentInfo(ClassSerializer):
 DocumentInfo.typecode = ZSI.TC.Struct(DocumentInfo,
                                       (ZSI.TC.String('url_es'),
                                        ZSI.TC.String('url_eu'),),
-                                      'DocumentInfo')
+                                      'DocumentInfo',
+                                      type=('cs.board.browser.api.MarkerService', 'DocumentInfo'))
 
 
 class FileInfo(ClassSerializer):
@@ -99,19 +100,12 @@ class FileInfo(ClassSerializer):
         self.description_eu = description_eu
         self.document = document
 
-    def __str__(self):
-        return u'''<FileInfo>
-                     <description_es>%s</description_es>
-                     <description_eu>%s</description_eu>
-                     <document>%s</document>
-                   </FileInfo>''' % (self.description_es, self.description_eu, self.document)
-
 FileInfo.typecode = ZSI.TC.Struct(FileInfo,
                                   (ZSI.TC.String('description_es'),
                                    ZSI.TC.String('description_eu'),
                                    ZSI.TC.Base64Binary('document')),
-                                  'FileInfo')
-
+                                  'FileInfo',
+                                  type=('cs.board.browser.api.MarkerService', 'FileInfo'),)
 
 
 class MarkerService(SoapServiceBase):
@@ -188,6 +182,10 @@ class BoardAPI(BrowserView):
                 ed = DateTime(expiration_date)
             except Exception,e:
                 raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date format is not correct: %s' % e)
+
+            if pd > ed:
+                raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date must be later than the publication_date' % e)
+
             # end of validation                 
                 
             id = self.context.generateUniqueId('BoardDocument')
@@ -211,30 +209,9 @@ class BoardAPI(BrowserView):
             obj_eu.reindexObject()
 
             # Create the file for each published            
-            for document in documents.values():
-                if document.get('document', None) is None:
-                    raise ZSI.Fault(ZSI.Fault.Client, 'document is required')
-                
-                doc_id = obj.generateUniqueId('AccreditedFile')
-
-                try:
-                    filecontent = base64.decodestring(document.get('document', ''))
-                except:
-                    raise ZSI.Fault(ZSI.Fault.Client, 'an error occured when decoding the base64 encoded file content')
-                
-                doc_id = obj.invokeFactory(id=doc_id,
-                                           type_name='AccreditedFile',
-                                           title=document.get('description_es', ''),
-                                           file=filecontent,
-                                           filename=document.get('document_filename', ''),
-                                           )
-                doc_obj = getattr(obj, doc_id)
-                ff = doc_obj.getField('file')
-                ff.setFilename(doc_obj, document.get('document_filename',document.get('description_es', '')))
-                doc_obj._renameAfterCreation()
-                doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
-                doc_obj_eu._renameAfterCreation()
-                doc_obj_eu.reindexObject()
+            if documents:
+                for document in documents.values():
+                    self.generateDocument(obj, document)
 
             wtool.doActionFor(obj, 'publish')
             # XXX
@@ -242,58 +219,81 @@ class BoardAPI(BrowserView):
             return 1
                 
         elif action == 'UPDATE':
+            if not filenumber:
+                raise ZSI.Fault(ZSI.Fault.Client, 'You have to provide the filenumber to identify the document')
+            
             brains = self.portal_catalog(filenumber=filenumber,
                                          portal_type='BoardDocument',
                                          language='es')
             for brain in brains:
                 obj = brain.getObject()
-                obj.edit(title=title_es,
-                         filetype=filetype,
-                         filenumber=filenumber,
-                         )
-                obj.setEffectiveDate(DateTime(publication_date))
-                obj.setExpirationDate(DateTime(expiration_date))
+                if title_es:
+                    obj.edit(title=title_es)
+                if filetype:
+                    obj.edit(filetype=filetype)
+
+                ## XXX: it doesn't make sense to edit the filenumber
+                ## if we've used it to identify it :
+                    
+                ## if filenumber:
+                ##     obj.edit(filenumber=filenumber)
+
+                try:
+                    if publication_date:
+                        obj.setEffectiveDate(DateTime(publication_date))
+                except:
+                    raise ZSI.Fault(ZSI.Fault.Client, 'publication_date format is not correct')
+
+                try:
+                    if expiration_date:
+                        obj.setExpirationDate(DateTime(expiration_date))
+                except:
+                    raise ZSI.Fault(ZSI.Fault.Client, 'expiration_date format is not correct')
+
                 obj.reindexObject()
-                obj_eu = obj.getTranslation('eu')
-                obj_eu.setTitle(title_eu)
-                obj_eu.reindexObject()
+                if title_eu:
+                    obj_eu = obj.getTranslation('eu')
+                    obj_eu.setTitle(title_eu)
+                    obj_eu.reindexObject()
 
             # XXX
             newSecurityManager(None, current_user)
             return 1
 
         elif action == 'ADD':
+            if not filenumber:
+                raise ZSI.Fault(ZSI.Fault.Client, 'You have to provide the filenumber to identify the document')
+
+            if not documents:
+                raise ZSI.Fault(ZSI.Fault.Client, 'You have to provide the files to add to the document')
+            
             brains = self.portal_catalog(filenumber=filenumber,
                                          portal_type='BoardDocument',
                                          Language='es')
             for brain in brains:
                 obj = brain.getObject()
-                for document in documents:
-                    doc_id = obj.generateUniqueId('AccreditedFile')
-                    doc_id = obj.invokeFactory(id=doc_id,
-                                               type_name='AccreditedFile',
-                                               title=document['description_es'],
-                                               file=document['document'].data,
-                                               filename=document['document_filename'],
-                                               )
-                    doc_obj = getattr(obj, doc_id)
-                    doc_obj._renameAfterCreation()
-                    doc_obj_eu = doc_obj.addTranslation(language='eu', title=document['description_eu'])
-                    doc_obj_eu._renameAfterCreation()
-                    doc_obj_eu.reindexObject()
+                for document in documents.values():
+                    self.generate_document(obj, document)
+
             # XXX
             newSecurityManager(None, current_user)
             return 1
 
         elif action == 'DELETE':
+            if not filenumber:
+                raise ZSI.Fault(ZSI.Fault.Client, 'You have to provide the filenumber to identify the document')
+
             brains = self.portal_catalog(filenumber=filenumber,
                                          portal_type='BoardDocument',
                                          Language='es')
             for brain in brains:
-                obj = brain.getObject()
-                obj_eu = obj.getTranslation('eu')
-                del aq_parent(obj)[obj.getId()]
-                del aq_parent(obj_eu)[obj_eu.getId()]
+                try:
+                    obj = brain.getObject()
+                    obj_eu = obj.getTranslation('eu')
+                    del aq_parent(obj)[obj.getId()]
+                    del aq_parent(obj_eu)[obj_eu.getId()]
+                except:
+                    raise ZSI.Fault(ZSI.Fault.Client, 'An error occurred while deleting the document. Contact the administrator.')
 
             # XXX
             newSecurityManager(None, current_user)
@@ -307,6 +307,34 @@ class BoardAPI(BrowserView):
         # XXX
         newSecurityManager(None, current_user)
 
+    def generate_document(self, obj, document):
+        if document.get('document', None) is None:
+            raise ZSI.Fault(ZSI.Fault.Client, 'document is required')
+
+        doc_id = obj.generateUniqueId('AccreditedFile')
+
+        try:
+            filecontent = base64.decodestring(document.get('document', ''))
+        except:
+            raise ZSI.Fault(ZSI.Fault.Client, 'an error occured when decoding the base64 encoded file content')
+
+        try:
+            doc_id = obj.invokeFactory(id=doc_id,
+                                       type_name='AccreditedFile',
+                                       title=document.get('description_es', ''),
+                                       file=filecontent,
+                                       filename=document.get('document_filename', ''),
+                                       )
+
+            doc_obj = getattr(obj, doc_id)
+            ff = doc_obj.getField('file')
+            ff.setFilename(doc_obj, document.get('document_filename',document.get('description_es', '')))
+            doc_obj._renameAfterCreation()
+            doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
+            doc_obj_eu._renameAfterCreation()
+            doc_obj_eu.reindexObject()
+        except:
+            raise ZSI.Fault(ZSI.Fault.Client, 'An error occured while addint the file. Contact the administrator.')
             
     def get_filetype_info(self, filetype):
         current_user = getSecurityManager().getUser()
@@ -319,11 +347,12 @@ class BoardAPI(BrowserView):
     def get_file_info(self, filenumber):
         current_user = getSecurityManager().getUser()
         newSecurityManager(None, UnrestrictedUser('andago', '', ['Manager'], []))
+        
         ret = self.decorateBrains(self.portal_catalog(filenumber=filenumber, portal_type='BoardDocument', Language='es'))
-
         newSecurityManager(None, current_user)
-        return ret
+        import pdb;pdb.set_trace()
 
+        return ret #, ZSI.TC.Array(('cs.board.browser.api.MarkerService', 'DocumentInfoArray'), DocumentInfo.typecode, 'DocumentInfoArray', mutable=True)
 
     def decorateBrains(self, brains):
         ret = []
