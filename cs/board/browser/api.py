@@ -350,7 +350,6 @@ class BoardAPI(BrowserView):
         
         ret = self.decorateBrains(self.portal_catalog(filenumber=filenumber, portal_type='BoardDocument', Language='es'))
         newSecurityManager(None, current_user)
-        import pdb;pdb.set_trace()
 
         return ret #, ZSI.TC.Array(('cs.board.browser.api.MarkerService', 'DocumentInfoArray'), DocumentInfo.typecode, 'DocumentInfoArray', mutable=True)
 
