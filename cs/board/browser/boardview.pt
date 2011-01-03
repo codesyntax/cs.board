@@ -29,7 +29,8 @@
         </thead>
         <tbody>
           <tal:document repeat="document view/getPublishedDocuments">
-            <tr tal:define="document_object document/getObject">
+            <tr tal:define="document_object document/getObject"
+                tal:attributes="class python:document_object.expires().isPast() and 'expired' or None">
               <td tal:content="document_object/filenumber">IX85564/2010</td>
               <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a>
               <td tal:content="document_object/filetype">Announcement</td>
@@ -65,7 +66,8 @@
         </thead>
         <tbody>
           <tal:document repeat="document view/getPrivateDocuments">
-            <tr tal:define="document_object document/getObject">
+            <tr tal:define="document_object document/getObject"
+                tal:attributes="class python:document_object.expires().isPast() and 'expired' or None">
               <td tal:content="document_object/filenumber">IX85564/2010</td>
               <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a>
               <td tal:content="document_object/filetype">Announcement</td>
