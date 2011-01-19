@@ -8,6 +8,8 @@ from Acquisition import aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 
+from Products.CMFPlone.utils import safe_unicode
+
 from DateTime import DateTime
 import base64
 import ZSI
@@ -22,6 +24,9 @@ from AccessControl.SecurityManagement import newSecurityManager
 from AccessControl import getSecurityManager
 from AccessControl.User import UnrestrictedUser
 
+
+def safe_utf8(data):
+    return safe_unicode(data).encode('utf-8')
 
 class IBoardAPI(Interface):
 
@@ -323,12 +328,12 @@ class BoardAPI(BrowserView):
                                        type_name='AccreditedFile',
                                        title=document.get('description_es', ''),
                                        file=filecontent,
-                                       filename=document.get('document_filename', ''),
+                                       filename=safe_utf8(document.get('document_filename', '')),
                                        )
 
             doc_obj = getattr(obj, doc_id)
             ff = doc_obj.getField('file')
-            ff.setFilename(doc_obj, document.get('document_filename',document.get('description_es', '')))
+            ff.setFilename(doc_obj, safe_utf8(document.get('document_filename',document.get('description_es', ''))))
             doc_obj._renameAfterCreation()
             doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
             doc_obj_eu._renameAfterCreation()
