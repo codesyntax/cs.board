@@ -43,7 +43,7 @@ class IBoardAPI(Interface):
                          documents=[{'document':'',
                                      'description_es':'',
                                      'description_eu':'',
-                                     'document_filename':''},
+                                     'filename':''},
                                     ]
                          ):
         """
@@ -119,7 +119,7 @@ class MarkerService(SoapServiceBase):
     def publish_document(self, action='', filenumber='', filetype='',
                          title_es='', title_eu='', publication_date='', expiration_date='',
                          documents=[{'document': '',
-                                     'document_filename': '',
+                                     'filename': '',
                                      'description_es':'',
                                      'description_eu':''},
                                     ],):
@@ -150,7 +150,7 @@ class BoardAPI(BrowserView):
     def publish_document(self, action='', filenumber='', filetype='',
                          title_es='', title_eu='', publication_date='', expiration_date='',
                          documents=[{'document': '',
-                                     'document_filename': '',
+                                     'filename': '',
                                      'description_es':'',
                                      'description_eu':''},
                                     ],):
@@ -328,12 +328,12 @@ class BoardAPI(BrowserView):
                                        type_name='AccreditedFile',
                                        title=document.get('description_es', ''),
                                        file=filecontent,
-                                       filename=safe_utf8(document.get('document_filename', '')),
+                                       filename=safe_utf8(document.get('filename', '')),
                                        )
 
             doc_obj = getattr(obj, doc_id)
             ff = doc_obj.getField('file')
-            ff.setFilename(doc_obj, safe_utf8(document.get('document_filename',document.get('description_es', ''))))
+            ff.setFilename(doc_obj, safe_utf8(document.get('filename',document.get('description_es', ''))))
             doc_obj._renameAfterCreation()
             doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
             doc_obj_eu._renameAfterCreation()
@@ -386,7 +386,7 @@ class BoardAPI(BrowserView):
         ##     file_data['description_es'] = f.Title
         ##     file_data['description_eu'] = f_obj.getTranslation('eu').Title()
         ##     file_data['document'] = xmlrpclib.Binary(f_obj.data)
-        ##     file_data['document_filename'] = f_obj.getField('file').getFilename(f_obj)
+        ##     file_data['filename'] = f_obj.getField('file').getFilename(f_obj)
         ##     data['documents'].append(file_data)
 
         return DocumentInfo(url_es=data['url_es'],
