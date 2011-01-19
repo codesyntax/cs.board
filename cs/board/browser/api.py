@@ -99,16 +99,19 @@ class FileInfo(ClassSerializer):
         description_es = String
         description_eu = String
         document = Attachment
+        filename = String
 
-    def __init__(self, description_es='', description_eu='', document = None):
+    def __init__(self, description_es='', description_eu='', document = None, filename=''):
         self.description_es = description_es
         self.description_eu = description_eu
         self.document = document
+        self.filename = filename
 
 FileInfo.typecode = ZSI.TC.Struct(FileInfo,
                                   (ZSI.TC.String('description_es'),
                                    ZSI.TC.String('description_eu'),
-                                   ZSI.TC.Base64Binary('document')),
+                                   ZSI.TC.Base64Binary('document'),
+                                   ZSI.TC.String('filename')),
                                   'FileInfo',
                                   type=('cs.board.browser.api.MarkerService', 'FileInfo'),)
 
