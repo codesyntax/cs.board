@@ -1,7 +1,4 @@
-"""
-wsapi4plone.core based WS API for document publication
-"""
-
+from zope import event
 from zope.interface import Interface, implements
 from Acquisition import aq_parent
 
@@ -9,6 +6,8 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 
 from Products.CMFPlone.utils import safe_unicode
+
+from Products.Archetypes.event import ObjectInitializedEvent
 
 from DateTime import DateTime
 import base64
@@ -341,8 +340,10 @@ class BoardAPI(BrowserView):
             doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
             doc_obj_eu._renameAfterCreation()
             doc_obj_eu.reindexObject()
+            event.notify(ObjectInitializedEvent(doc_obj))
+            event.notify(ObjectInitializedEvent(doc_obj_eu))
         except:
-            raise ZSI.Fault(ZSI.Fault.Client, 'An error occured while addint the file. Contact the administrator.')
+            raise ZSI.Fault(ZSI.Fault.Client, 'An error occured while adding the file. Contact the administrator.')
             
     def get_filetype_info(self, filetype):
         current_user = getSecurityManager().getUser()
