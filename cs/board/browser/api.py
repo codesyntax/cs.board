@@ -353,6 +353,8 @@ class BoardAPI(BrowserView):
             event.notify(ObjectInitializedEvent(doc_obj))
             event.notify(ObjectInitializedEvent(doc_obj_eu))
             log.info('created')
+            log.info(doc_obj.getUrl())
+            log.info(doc_obj_eu.getUrl())
         except:
             raise ZSI.Fault(ZSI.Fault.Client, 'An error occured while adding the file. Contact the administrator.')
             
