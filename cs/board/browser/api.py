@@ -165,6 +165,12 @@ class BoardAPI(BrowserView):
 
         wtool = getToolByName(self.context, 'portal_workflow')
 
+
+        from logging import getLogger
+        log = getLogger('cs.board.api')
+
+        
+
         if action == 'INSERT':
             # Validation
             if not filenumber:
@@ -315,6 +321,10 @@ class BoardAPI(BrowserView):
         newSecurityManager(None, current_user)
 
     def generate_document(self, obj, document):
+
+        from logging import getLogger
+        log = getLogger('cs.board.api.generate_document')
+        
         if document.get('document', None) is None:
             raise ZSI.Fault(ZSI.Fault.Client, 'document is required')
 
@@ -342,6 +352,7 @@ class BoardAPI(BrowserView):
             doc_obj_eu.reindexObject()
             event.notify(ObjectInitializedEvent(doc_obj))
             event.notify(ObjectInitializedEvent(doc_obj_eu))
+            log.info('created')
         except:
             raise ZSI.Fault(ZSI.Fault.Client, 'An error occured while adding the file. Contact the administrator.')
             
