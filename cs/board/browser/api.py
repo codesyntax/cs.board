@@ -365,12 +365,9 @@ class BoardAPI(BrowserView):
             from cs.accreditedfile.subscriber import accreditation
             job = async.queueJob(accreditation, doc_obj)
             job1 = async.queueJob(accreditation, doc_obj_eu)
-            log.info(job.status)
-            log.info(job1.status)
-
+            log.info(doc_obj.absolute_url())
+            log.info(doc_obj_eu.absolute_url())
             log.info('created')
-            log.info(doc_obj.getUrl())
-            log.info(doc_obj_eu.getUrl())
         except:
             raise ZSI.Fault(ZSI.Fault.Client, 'An error occured while adding the file. Contact the administrator.')
             
