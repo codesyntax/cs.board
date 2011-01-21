@@ -355,9 +355,9 @@ class BoardAPI(BrowserView):
             from zope.component import getUtility
             from plone.app.async.interfaces import IAsyncService
             async = getUtility(IAsyncService)
-            from cs.accreditedfile.subscriber import getPublicationAccreditation
-            job = async.queueJob(getPublicationAccreditation, doc_obj)
-            job1 = async.queueJob(getPublicationAccreditation, doc_obj_eu)
+            from cs.accreditedfile.subscriber import accreditation
+            job = async.queueJob(accreditation, doc_obj)
+            job1 = async.queueJob(accreditation, doc_obj_eu)
             log.info(job.status)
             log.info(job1.status)
 
