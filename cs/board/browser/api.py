@@ -350,8 +350,17 @@ class BoardAPI(BrowserView):
             doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
             doc_obj_eu._renameAfterCreation()
             doc_obj_eu.reindexObject()
-            event.notify(ObjectInitializedEvent(doc_obj))
-            event.notify(ObjectInitializedEvent(doc_obj_eu))
+            #event.notify(ObjectInitializedEvent(doc_obj))
+            #event.notify(ObjectInitializedEvent(doc_obj_eu))
+            from zope.component import getUtility
+            from plone.app.async.interfaces import IAsyncService
+            async = getUtility(IAsyncService)
+            from cs.accreditedfile.subscriber import getPublicationAccreditation
+            job = async.queueJob(getPublicationAccreditation, doc_obj)
+            job1 = async.queueJob(getPublicationAccreditation, doc_obj_eu)
+            log.info(job.status)
+            log.info(job1.status)
+
             log.info('created')
             log.info(doc_obj.getUrl())
             log.info(doc_obj_eu.getUrl())
