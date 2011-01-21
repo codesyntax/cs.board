@@ -344,10 +344,15 @@ class BoardAPI(BrowserView):
                                        )
 
             doc_obj = getattr(obj, doc_id)
+            doc_obj.setEffectiveDate(obj.EffectiveDate())
+            doc_obj.setExpirationDate(obj.ExpirationDate())
+            
             ff = doc_obj.getField('file')
             ff.setFilename(doc_obj, safe_utf8(document.get('filename',document.get('description_es', ''))))
             doc_obj._renameAfterCreation()
             doc_obj_eu = doc_obj.addTranslation(language='eu', title=document.get('description_eu', ''))
+            doc_obj_eu.setEffectiveDate(obj.EffectiveDate())
+            doc_obj_eu.setExpirationDate(obj.ExpirationDate())
             doc_obj_eu._renameAfterCreation()
             doc_obj_eu.reindexObject()
             #event.notify(ObjectInitializedEvent(doc_obj))
