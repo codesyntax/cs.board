@@ -41,6 +41,8 @@ class BoardView(BrowserView):
     def getPublishedDocuments(self):
         context = aq_inner(self.context)
         return self.portal_catalog(path='/'.join(context.getPhysicalPath()),
+                                   sort_on='effective',
+                                   sort_order='reverse',
                                    portal_type='BoardDocument',
                                    review_state='published')
 
@@ -48,5 +50,6 @@ class BoardView(BrowserView):
     def getPrivateDocuments(self):
         context = aq_inner(self.context)
         return self.portal_catalog(path='/'.join(context.getPhysicalPath()),
+                                   sort_on='created',
                                    portal_type='BoardDocument',
                                    review_state='private')
