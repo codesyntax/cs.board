@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-09-14 09:30+0000\n"
+"POT-Creation-Date: 2011-03-16 14:34+0000\n"
 "PO-Revision-Date: 2010-09-14 11:33+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,7 +31,7 @@ msgid "Document published on the board"
 msgstr "Iragarki-oholean argitaratzeko dokumentua"
 
 #. Default: "List of documents not yet published on the board"
-#: ./browser/boardview.pt:56
+#: ./browser/boardview.pt:57
 msgid "board_private_caption"
 msgstr "Argitaratu gabeko dokumentuen zerrenda"
 
@@ -41,7 +41,7 @@ msgid "board_published_caption"
 msgstr "Argitaratutako dokumentuen zerrenda"
 
 #. Default: "Not yet published documents"
-#: ./browser/boardview.pt:45
+#: ./browser/boardview.pt:46
 msgid "heading_board_private"
 msgstr "Argitaratu gabeko dokumentuak"
 
@@ -63,25 +63,25 @@ msgstr "Argitaratze data"
 #. Default: "File number"
 #: ./browser/boardview.pt:23
 #: ./browser/documentview.pt:8
-#: ./content/boarddocument.py:25
+#: ./content/boarddocument.py:29
 msgid "label_filenumber"
 msgstr "Espediente-zenbakia"
 
 #. Default: "File type"
 #: ./browser/boardview.pt:25
 #: ./browser/documentview.pt:14
-#: ./content/boarddocument.py:34
+#: ./content/boarddocument.py:38
 msgid "label_filetype"
 msgstr "Espediente-mota"
 
 #. Default: "Literal procedure name"
 #: ./browser/boardview.pt:24
-#: ./content/boarddocument.py:43
+#: ./content/boarddocument.py:47
 msgid "label_literalprocedure"
 msgstr "Prozedura"
 
 #. Default: "There are no unpublished documents"
-#: ./browser/boardview.pt:49
+#: ./browser/boardview.pt:50
 msgid "label_no_private_documents"
 msgstr "Ez dago argitaratu gabeko dokumenturik"
 

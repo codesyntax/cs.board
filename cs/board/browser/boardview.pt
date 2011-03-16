@@ -27,15 +27,29 @@
             <th i18n:domain="plone" i18n:translate="label_expiration_date">Expiration Date</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody
+            tal:define="DateTime modules/DateTime">
           <tal:document repeat="document view/getPublishedDocuments">
-            <tr tal:define="document_object document/getObject"
-                tal:attributes="class python:document_object.expires().isPast() and 'expired' or None">
+            <tr tal:define="document_object document/getObject;
+                            oddrow repeat/document/odd;"
+                tal:attributes="class python:(oddrow and 'even' or 'odd') + (document_object.expires().isPast() and ' expired' or '')">
               <td tal:content="document_object/filenumber">IX85564/2010</td>
-              <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a>
+              <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a></td>
               <td tal:content="document_object/filetype">Announcement</td>
-              <td tal:content="python:toLocalizedTime(document.EffectiveDate, long_format=1)">2010/08/20 16:15</td>
-              <td tal:content="python:toLocalizedTime(document.ExpirationDate, long_format=1)">2010/09/20 16:15</td>
+              <td> 
+                <span class="hiddenStructure"
+                      tal:content="python:DateTime.DateTime(document.EffectiveDate).ISO()">
+                  2010/02/12 12:23
+                </span>
+                <span tal:replace="python:toLocalizedTime(document.EffectiveDate, long_format=1)">2010/08/20 16:15</span>
+              </td>
+              <td>
+                <span class="hiddenStructure"
+                      tal:content="python:DateTime.DateTime(document.ExpirationDate).ISO()">
+                  2010/02/12 12:23
+                </span>
+                <span tal:replace="python:toLocalizedTime(document.ExpirationDate, long_format=1)">2010/08/20 16:15</span>
+              </td>
             </tr>
           </tal:document>
         </tbody>
