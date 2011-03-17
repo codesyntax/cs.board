@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-03-16 14:34+0000\n"
-"PO-Revision-Date: 2010-09-14 11:32+0100\n"
+"POT-Creation-Date: 2011-03-17 08:36+0000\n"
+"PO-Revision-Date: 2011-03-17 09:38+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -31,24 +31,34 @@ msgid "Document published on the board"
 msgstr "Documento publicado en el tablón"
 
 #. Default: "List of documents not yet published on the board"
-#: ./browser/boardview.pt:57
+#: ./browser/boardview.pt:95
 msgid "board_private_caption"
 msgstr "Listado de documentos no publicados todavía en el tablón"
 
+#. Default: "List of published but already expired documents"
+#: ./browser/boardview.pt:76
+msgid "board_publisehd_expired_caption"
+msgstr "Listado de documentos publicados pero ya caducados"
+
 #. Default: "List of documents published on the board"
-#: ./browser/boardview.pt:20
+#: ./browser/boardview.pt:24
 msgid "board_published_caption"
 msgstr "Listado de documentos publicados en el tablón"
 
 #. Default: "Not yet published documents"
-#: ./browser/boardview.pt:46
+#: ./browser/boardview.pt:83
 msgid "heading_board_private"
 msgstr "Documentos no publicados"
 
 #. Default: "Published documents"
-#: ./browser/boardview.pt:10
+#: ./browser/boardview.pt:12
 msgid "heading_board_published"
 msgstr "Documentos publicados"
+
+#. Default: "Expired published documents"
+#: ./browser/boardview.pt:66
+msgid "heading_board_published_expired"
+msgstr "Documentos publicados caducados"
 
 #. Default: "Document expiry date"
 #: ./browser/documentview.pt:26
@@ -61,32 +71,37 @@ msgid "label_document_publication_start"
 msgstr "Fecha de publicación"
 
 #. Default: "File number"
-#: ./browser/boardview.pt:23
+#: ./browser/boardview.pt:28
 #: ./browser/documentview.pt:8
 #: ./content/boarddocument.py:29
 msgid "label_filenumber"
 msgstr "Número de expediente"
 
 #. Default: "File type"
-#: ./browser/boardview.pt:25
+#: ./browser/boardview.pt:30
 #: ./browser/documentview.pt:14
 #: ./content/boarddocument.py:38
 msgid "label_filetype"
 msgstr "Tipo de expediente"
 
 #. Default: "Literal procedure name"
-#: ./browser/boardview.pt:24
+#: ./browser/boardview.pt:29
 #: ./content/boarddocument.py:47
 msgid "label_literalprocedure"
 msgstr "Procedimiento literal"
 
 #. Default: "There are no unpublished documents"
-#: ./browser/boardview.pt:50
+#: ./browser/boardview.pt:87
 msgid "label_no_private_documents"
 msgstr "No hay documentos sin publicar"
 
 #. Default: "There are no published documents"
-#: ./browser/boardview.pt:14
+#: ./browser/boardview.pt:16
 msgid "label_no_published_documents"
 msgstr "No hay documentos publicados"
+
+#. Default: "There are no published expired documents"
+#: ./browser/boardview.pt:70
+msgid "label_no_published_expired_documents"
+msgstr "No hay documentos caducados"
 
