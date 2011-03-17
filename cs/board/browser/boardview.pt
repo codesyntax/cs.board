@@ -2,99 +2,100 @@
       lang="en"
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="cs.board">
+
 <body>
-    <div metal:fill-slot="content-core"
-         tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime">
+   <div metal:fill-slot="content-core"
+       tal:define="toLocalizedTime nocall:context/@@plone/toLocalizedTime;
+                   DateTime modules/DateTime;
+                   mtool context/portal_membership">
+    
+    <h2 i18n:translate="heading_board_published">
+      Published documents
+    </h2>
+    
+    <p tal:condition="not:view/getPublishedDocuments"
+       i18n:translate="label_no_published_documents">
+      There are no published documents
+    </p>
+    
+    <table class="listing" id="published_documents" 
+           tal:condition="view/getPublishedDocuments"
+           tal:define="documents view/getPublishedDocuments">
+      <caption i18n:translate="board_published_caption">List of documents published on the board</caption>
+       <metal:table define-macro="tablecontents">
+    <thead>
+      <tr>
+        <th i18n:translate="label_filenumber">File number</th>
+        <th i18n:translate="label_literalprocedure">Literal procedure name</th>
+        <th i18n:translate="label_filetype">File type</th>
+        <th i18n:domain="plone" i18n:translate="label_effective_date">Publishing Date</th>
+        <th i18n:domain="plone" i18n:translate="label_expiration_date">Expiration Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tal:document repeat="document documents">
+        <tr tal:define="document_object document/getObject;
+                        oddrow repeat/document/odd;"
+            tal:attributes="class python:oddrow and 'even' or 'odd'">
+          <td tal:content="document_object/filenumber">IX85564/2010</td>
+          <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a></td>
+          <td tal:content="document_object/filetype">Announcement</td>
+          <td> 
+            <span class="hiddenStructure"
+                  tal:content="python:DateTime.DateTime(document.EffectiveDate).ISO()">
+              2010/02/12 12:23
+            </span>
+            <span tal:replace="python:toLocalizedTime(document.EffectiveDate, long_format=1)">2010/08/20 16:15</span>
+          </td>
+          <td>
+            <span class="hiddenStructure"
+                  tal:content="python:DateTime.DateTime(document.ExpirationDate).ISO()">
+              2010/02/12 12:23
+            </span>
+            <span tal:replace="python:toLocalizedTime(document.ExpirationDate, long_format=1)">2010/08/20 16:15</span>
+          </td>
+        </tr>
+      </tal:document>
+    </tbody>
 
+  </metal:table>
 
-      <h2 i18n:translate="heading_board_published">
-        Published documents
+    </table>
+    
+    <tal:expired condition="python:not mtool.isAnonymousUser() and view.getPublishedExpiredDocuments()">
+      <h2 i18n:translate="heading_board_published_expired">
+        Expired published documents
       </h2>
-
+      
       <p tal:condition="not:view/getPublishedDocuments"
-         i18n:translate="label_no_published_documents">
-        There are no published documents
+         i18n:translate="label_no_published_expired_documents">
+        There are no published expired documents
       </p>
-
-      <table class="listing" id="published_documents" tal:condition="view/getPublishedDocuments">
-        <caption i18n:translate="board_published_caption">List of documents published on the board</caption>
-        <thead>
-          <tr>
-            <th i18n:translate="label_filenumber">File number</th>
-            <th i18n:translate="label_literalprocedure">Literal procedure name</th>
-            <th i18n:translate="label_filetype">File type</th>
-            <th i18n:domain="plone" i18n:translate="label_effective_date">Publishing Date</th>
-            <th i18n:domain="plone" i18n:translate="label_expiration_date">Expiration Date</th>
-          </tr>
-        </thead>
-        <tbody
-            tal:define="DateTime modules/DateTime">
-          <tal:document repeat="document view/getPublishedDocuments">
-            <tr tal:define="document_object document/getObject;
-                            oddrow repeat/document/odd;"
-                tal:attributes="class python:(oddrow and 'even' or 'odd') + (document_object.expires().isPast() and ' expired' or '')">
-              <td tal:content="document_object/filenumber">IX85564/2010</td>
-              <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a></td>
-              <td tal:content="document_object/filetype">Announcement</td>
-              <td> 
-                <span class="hiddenStructure"
-                      tal:content="python:DateTime.DateTime(document.EffectiveDate).ISO()">
-                  2010/02/12 12:23
-                </span>
-                <span tal:replace="python:toLocalizedTime(document.EffectiveDate, long_format=1)">2010/08/20 16:15</span>
-              </td>
-              <td>
-                <span class="hiddenStructure"
-                      tal:content="python:DateTime.DateTime(document.ExpirationDate).ISO()">
-                  2010/02/12 12:23
-                </span>
-                <span tal:replace="python:toLocalizedTime(document.ExpirationDate, long_format=1)">2010/08/20 16:15</span>
-              </td>
-            </tr>
-          </tal:document>
-        </tbody>
+      <table class="listing" id="private_documents" 
+             tal:define="documents view/getPublishedExpiredDocuments">
+        <caption i18n:translate="board_publisehd_expired_caption">List of published but already expired documents</caption>
+        <metal:table use-macro="here/@@view/macros/tablecontents" />
       </table>
-
-      <tal:private define="mtool context/portal_membership"
-                   condition="not:mtool/isAnonymousUser">
+    </tal:expired>
+    
+    
+    <tal:private condition="not:mtool/isAnonymousUser">
       <h2 i18n:translate="heading_board_private">
         Not yet published documents
       </h2>
-
+      
       <p tal:condition="not:view/getPrivateDocuments"
          i18n:translate="label_no_private_documents">
         There are no unpublished documents
       </p>
-
-
-      <table class="listing" id="private_documents" tal:condition="view/getPrivateDocuments">
+      
+      <table class="listing" id="private_documents" 
+             tal:condition="view/getPrivateDocuments"
+             tal:define="documents view/getPrivateDocuments">
         <caption i18n:translate="board_private_caption">List of documents not yet published on the board</caption>
-        <thead>
-          <tr>
-            <th i18n:translate="label_filenumber">File number</th>
-            <th i18n:translate="label_literalprocedure">Literal procedure name</th>
-            <th i18n:translate="label_filetype">File type</th>
-            <th i18n:domain="plone" i18n:translate="label_effective_date">Publishing Date</th>
-            <th i18n:domain="plone" i18n:translate="label_expiration_date">Expiration Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tal:document repeat="document view/getPrivateDocuments">
-            <tr tal:define="document_object document/getObject"
-                tal:attributes="class python:document_object.expires().isPast() and 'expired' or None">
-              <td tal:content="document_object/filenumber">IX85564/2010</td>
-              <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a>
-              <td tal:content="document_object/filetype">Announcement</td>
-              <td tal:content="python:toLocalizedTime(document.EffectiveDate, long_format=1)">2010/08/20 16:15</td>
-              <td tal:content="python:toLocalizedTime(document.ExpirationDate, long_format=1)">2010/09/20 16:15</td>
-            </tr>
-          </tal:document>
-        </tbody>
+        <metal:table use-macro="here/@@view/macros/tablecontents" />
       </table>
-
-
-      </tal:private>
-
-    </div>
+    </tal:private>
+  </div>
 </body>
 </html>
