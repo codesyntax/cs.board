@@ -20,17 +20,7 @@ long_description = (
     read('CHANGES.txt')
     + '\n' +
     'Detailed Documentation\n'
-    '**********************\n'
-    + '\n' +
-    read('cs', 'board', 'README.txt')
-    + '\n' +
-    'Contributors\n'
-    '************\n'
-    + '\n' +
-    read('CONTRIBUTORS.txt')
-    + '\n' +
-    'Download\n'
-    '********\n')
+    '**********************\n')
 
 tests_require = ['zope.testing']
 
