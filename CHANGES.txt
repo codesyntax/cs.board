@@ -2,6 +2,38 @@
 Changelog
 =========
 
+1.6.1 (2011/10/12)
+--------------------
+
+- Fix Changelog [erral]
+
+
+1.6 (2011/10/12)
+-----------------
+
+- Metadata [erral]
+
+
+1.5 (2011/03/17)
+-----------------
+
+- Add the list of private documents to the board view (only viewable holding proper permission) [erral]
+
+- Add translations [erral]
+
+
+
+1.4 (2011/03/15)
+-----------------
+
+- Safely convert to UTF-8 the description and filenames [erral]
+
+- Store filename in documents added from WS [erral]
+
+- Set effective and expiration dates correctly [erral]
+
+- Add sorting to board view [erral]
+
 
 1.3 (2011/01/03)
 ------------------
