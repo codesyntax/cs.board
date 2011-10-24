@@ -38,6 +38,15 @@ BoardDocumentSchema = folder.ATFolderSchema.copy() + atapi.Schema((
                                     label = _(u'label_filetype', default=u'File type'),
                                     )
         ),
+
+    atapi.StringField('sender',
+                      required= False,
+                      searchable = True,
+                      languageIndependent = False,
+                      storage = atapi.AnnotationStorage(),
+                      widget = atapi.StringWidget(
+                                    label = _(u'label_sender', default='Sender'),),
+                      ),
    
 
 ))
@@ -73,5 +82,6 @@ class BoardDocument(folder.ATFolder):
     # -*- Your ATSchema to Python Property Bridges Here ... -*-
     filenumber = atapi.ATFieldProperty('filenumber')
     filetype = atapi.ATFieldProperty('filetype')
+    sender = atapi.ATFieldProperty('sender')
 
 atapi.registerType(BoardDocument, PROJECTNAME)

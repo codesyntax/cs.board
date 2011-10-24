@@ -210,6 +210,14 @@ class BoardAPI(BrowserView):
             obj = getattr(self.context, obj_id)
             obj.setEffectiveDate(DateTime(publication_date))
             obj.setExpirationDate(DateTime(expiration_date))
+            try:
+                if obj.default_sender_value.strip():
+                    obj.sender = obj.default_sender_value
+            except:
+                # No default sender value set
+                # we have nothing to do here
+                pass
+            
             obj._renameAfterCreation()
             obj.reindexObject()
             try:
