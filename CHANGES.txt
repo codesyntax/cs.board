@@ -2,9 +2,11 @@
 Changelog
 =========
 
-1.6.2 (unreleased)
+1.7 (2011/10/24)
 -------------------
+- Add 'sender' field for documents [erral]
 
+- Populate sender automatically when called from WS [erral]
 
 1.6.1 (2011/10/12)
 --------------------

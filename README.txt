@@ -1,17 +1,9 @@
-.. contents::
+cs.board
+=========
 
-.. Note!
-   -----
-   Update the following URLs to point to your:
+This products provides an announcement board for 
+public institution in which they can publish
+official announcements.
 
-   - code repository
-   - bug tracker
-   - questions/comments feedback mail
-   (do not set a real mail, to avoid spams)
-
-   Or remove it if not used.
-
-- Code repository: http://svn.somewhere.com/...
-- Questions and comments to somemailing_list
-- Report bugs at http://bug.somewhere.com/..
-
+It has a WSDL interface to create automatic publishing
+methods from a third-party tool
