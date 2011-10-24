@@ -14,13 +14,8 @@ version = '1.7.1'
 long_description = (
     read('README.txt')
     + '\n' +
-    'Change history\n'
-    '**************\n'
-    + '\n' +
     read('CHANGES.txt')
-    + '\n' +
-    'Detailed Documentation\n'
-    '**********************\n')
+    )
 
 tests_require = ['zope.testing']
 
