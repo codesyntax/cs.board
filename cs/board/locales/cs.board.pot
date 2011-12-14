@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-10-24 14:07+0000\n"
+"POT-Creation-Date: 2011-12-14 14:56+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,6 +45,11 @@ msgstr ""
 msgid "board_published_caption"
 msgstr ""
 
+#. Default: "Description of the document"
+#: ./content/boarddocument.py:57
+msgid "description_title"
+msgstr ""
+
 #. Default: "Not yet published documents"
 #: ./browser/boardview.pt:85
 msgid "heading_board_private"
@@ -78,16 +83,10 @@ msgid "label_filenumber"
 msgstr ""
 
 #. Default: "File type"
-#: ./browser/boardview.pt:30
+#: ./browser/boardview.pt:29
 #: ./browser/documentview.pt:14
 #: ./content/boarddocument.py:38
 msgid "label_filetype"
-msgstr ""
-
-#. Default: "Literal procedure name"
-#: ./browser/boardview.pt:29
-#: ./content/boarddocument.py:56
-msgid "label_literalprocedure"
 msgstr ""
 
 #. Default: "There are no unpublished documents"
@@ -109,5 +108,11 @@ msgstr ""
 #: ./browser/boardview.pt:31
 #: ./content/boarddocument.py:48
 msgid "label_sender"
+msgstr ""
+
+#. Default: "Description"
+#: ./browser/boardview.pt:30
+#: ./content/boarddocument.py:56
+msgid "label_title"
 msgstr ""
 

@@ -53,7 +53,8 @@ BoardDocumentSchema = folder.ATFolderSchema.copy() + atapi.Schema((
 
 # Set storage on fields copied from ATFolderSchema, making sure
 # they work well with the python bridge properties.
-BoardDocumentSchema['title'].widget.label = _(u'label_literalprocedure', default=u'Literal procedure name')
+BoardDocumentSchema['title'].widget.label = _(u'label_title', default=u'Description')
+BoardDocumentSchema['title'].widget.description = _(u'description_title', default=u'Description of the document')
 BoardDocumentSchema['description'].widget.visible['edit'] = 'invisible'
 BoardDocumentSchema['title'].storage = atapi.AnnotationStorage()
 BoardDocumentSchema['description'].storage = atapi.AnnotationStorage()

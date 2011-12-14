@@ -26,8 +26,8 @@
     <thead>
       <tr>
         <th i18n:translate="label_filenumber">File number</th>
-        <th i18n:translate="label_literalprocedure">Literal procedure name</th>
         <th i18n:translate="label_filetype">File type</th>
+        <th i18n:translate="label_title">Description</th>
         <th i18n:translate="label_sender">Sender</th>
         <th i18n:domain="plone" i18n:translate="label_effective_date">Publishing Date</th>
         <th i18n:domain="plone" i18n:translate="label_expiration_date">Expiration Date</th>
@@ -39,8 +39,8 @@
                         oddrow repeat/document/odd;"
             tal:attributes="class python:oddrow and 'even' or 'odd'">
           <td tal:content="document_object/filenumber">IX85564/2010</td>
-          <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a></td>
           <td tal:content="document_object/filetype">Announcement</td>
+          <td><a href="#" tal:attributes="href document/getURL" tal:content="document/Title">Power supply</a></td>
           <td tal:content="document_object/sender">Ayuntamiento de Madrid</td>
           <td> 
             <span class="hiddenStructure"

@@ -2,6 +2,14 @@
 Changelog
 =============
 
+1.7.2 (2011/12/14)
+--------------------
+
+- Fix template order [erral]
+
+- Change some strings [erral]
+
+
 1.7.1 (2011/10/24)
 -------------------
 

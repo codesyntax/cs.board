@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-10-24 14:07+0000\n"
-"PO-Revision-Date: 2011-10-24 15:48+0100\n"
+"Project-Id-Version: cs.board\n"
+"POT-Creation-Date: 2011-12-14 14:56+0000\n"
+"PO-Revision-Date: 2011-12-14 15:58+0100\n"
 "Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: eu <eu@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+"X-Poedit-Language: Basque\n"
 
 #: ./profiles/default/types/Board.xml
 msgid "Board"
@@ -44,6 +45,11 @@ msgstr "Argitaratze-epea pasatuta duten dokumentuak"
 #: ./browser/boardview.pt:24
 msgid "board_published_caption"
 msgstr "Argitaratutako dokumentuen zerrenda"
+
+#. Default: "Description of the document"
+#: ./content/boarddocument.py:57
+msgid "description_title"
+msgstr "Dokumentuaren deskribapena"
 
 #. Default: "Not yet published documents"
 #: ./browser/boardview.pt:85
@@ -78,17 +84,11 @@ msgid "label_filenumber"
 msgstr "Espediente-zenbakia"
 
 #. Default: "File type"
-#: ./browser/boardview.pt:30
+#: ./browser/boardview.pt:29
 #: ./browser/documentview.pt:14
 #: ./content/boarddocument.py:38
 msgid "label_filetype"
 msgstr "Espediente-mota"
-
-#. Default: "Literal procedure name"
-#: ./browser/boardview.pt:29
-#: ./content/boarddocument.py:56
-msgid "label_literalprocedure"
-msgstr "Prozedura"
 
 #. Default: "There are no unpublished documents"
 #: ./browser/boardview.pt:89
@@ -110,4 +110,10 @@ msgstr "Ez dago iraungitako dokumenturik"
 #: ./content/boarddocument.py:48
 msgid "label_sender"
 msgstr "Argitaratzailea"
+
+#. Default: "Description"
+#: ./browser/boardview.pt:30
+#: ./content/boarddocument.py:56
+msgid "label_title"
+msgstr "Deskribapena"
 

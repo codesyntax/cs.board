@@ -1,10 +1,10 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-10-24 14:07+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI +ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Project-Id-Version: cs.board\n"
+"POT-Creation-Date: 2011-12-14 14:56+0000\n"
+"PO-Revision-Date: 2011-12-14 15:56+0100\n"
+"Last-Translator: Mikel Larreategi <mlarreategi@codesyntax.com>\n"
+"Language-Team: en <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -13,101 +13,107 @@ msgstr ""
 "Language-Name: English\n"
 "Preferred-Encodings: utf-8 latin1\n"
 "Domain: DOMAIN\n"
+"X-Poedit-Language: English\n"
 
 #: ./profiles/default/types/Board.xml
 msgid "Board"
-msgstr ""
+msgstr "Board"
 
 #: ./profiles/default/types/BoardDocument.xml
 msgid "BoardDocument"
-msgstr ""
+msgstr "Board Document"
 
 #: ./profiles/default/types/Board.xml
 msgid "Document publication board"
-msgstr ""
+msgstr "Document publication board"
 
 #: ./profiles/default/types/BoardDocument.xml
 msgid "Document published on the board"
-msgstr ""
+msgstr "Document published on the board"
 
 #. Default: "List of documents not yet published on the board"
 #: ./browser/boardview.pt:97
 msgid "board_private_caption"
-msgstr ""
+msgstr "List of documents not yet published on the board"
 
 #. Default: "List of published but already expired documents"
 #: ./browser/boardview.pt:78
 msgid "board_publisehd_expired_caption"
-msgstr ""
+msgstr "List of published but already expired documents"
 
 #. Default: "List of documents published on the board"
 #: ./browser/boardview.pt:24
 msgid "board_published_caption"
-msgstr ""
+msgstr "List of documents published on the board"
+
+#. Default: "Description of the document"
+#: ./content/boarddocument.py:57
+msgid "description_title"
+msgstr "Description of the document"
 
 #. Default: "Not yet published documents"
 #: ./browser/boardview.pt:85
 msgid "heading_board_private"
-msgstr ""
+msgstr "Not yet published documents"
 
 #. Default: "Published documents"
 #: ./browser/boardview.pt:12
 msgid "heading_board_published"
-msgstr ""
+msgstr "Published documents"
 
 #. Default: "Expired published documents"
 #: ./browser/boardview.pt:68
 msgid "heading_board_published_expired"
-msgstr ""
+msgstr "Expired published documents"
 
 #. Default: "Document expiry date"
 #: ./browser/documentview.pt:26
 msgid "label_document_publication_end"
-msgstr ""
+msgstr "Document expiry date"
 
 #. Default: "Document publication date"
 #: ./browser/documentview.pt:20
 msgid "label_document_publication_start"
-msgstr ""
+msgstr "Document publication date"
 
 #. Default: "File number"
 #: ./browser/boardview.pt:28
 #: ./browser/documentview.pt:8
 #: ./content/boarddocument.py:29
 msgid "label_filenumber"
-msgstr ""
+msgstr "File number"
 
 #. Default: "File type"
-#: ./browser/boardview.pt:30
+#: ./browser/boardview.pt:29
 #: ./browser/documentview.pt:14
 #: ./content/boarddocument.py:38
 msgid "label_filetype"
-msgstr ""
-
-#. Default: "Literal procedure name"
-#: ./browser/boardview.pt:29
-#: ./content/boarddocument.py:56
-msgid "label_literalprocedure"
-msgstr ""
+msgstr "File type"
 
 #. Default: "There are no unpublished documents"
 #: ./browser/boardview.pt:89
 msgid "label_no_private_documents"
-msgstr ""
+msgstr "There are no unpublished documents"
 
 #. Default: "There are no published documents"
 #: ./browser/boardview.pt:16
 msgid "label_no_published_documents"
-msgstr ""
+msgstr "There are no published document"
 
 #. Default: "There are no published expired documents"
 #: ./browser/boardview.pt:72
 msgid "label_no_published_expired_documents"
-msgstr ""
+msgstr "There are no published expired documents"
 
 #. Default: "Sender"
 #: ./browser/boardview.pt:31
 #: ./content/boarddocument.py:48
 msgid "label_sender"
-msgstr ""
+msgstr "Sender"
+
+#. Default: "Description"
+#: ./browser/boardview.pt:30
+#: ./content/boarddocument.py:56
+msgid "label_title"
+msgstr "Description"
 
